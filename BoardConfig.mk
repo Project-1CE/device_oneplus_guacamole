@@ -39,13 +39,14 @@ BOARD_BOOT_HEADER_VERSION := 2
 BOARD_KERNEL_BASE := 0x00000000
 BOARD_KERNEL_CMDLINE := androidboot.hardware=qcom androidboot.console=ttyMSM0 lpm_levels.sleep_disabled=1 msm_rtb.filter=0x237 service_locator.enable=1 swiotlb=2048 loop.max_part=7 androidboot.usbcontroller=a600000.dwc3
 BOARD_KERNEL_CMDLINE += androidboot.vbmeta.avb_version=1.0
-BOARD_KERNEL_IMAGE_NAME := Image.gz-dtb
+BOARD_KERNEL_IMAGE_NAME := Image.gz
 BOARD_KERNEL_PAGESIZE := 4096
 BOARD_KERNEL_SEPARATED_DTBO := true
 BOARD_MKBOOTIMG_ARGS += --header_version $(BOARD_BOOT_HEADER_VERSION)
 TARGET_KERNEL_CLANG_COMPILE := true
 TARGET_KERNEL_CONFIG := sm8150-perf_defconfig
 TARGET_KERNEL_SOURCE := kernel/oneplus/sm8150
+TARGET_KERNEL_VERSION := 4.14
 
 # Platform
 BOARD_USES_QCOM_HARDWARE := true
@@ -111,11 +112,9 @@ TARGET_USES_ION := true
 # DRM
 TARGET_ENABLE_MEDIADRM_64 := true
 
-# Filesystem
-TARGET_FS_CONFIG_GEN := $(DEVICE_PATH)/config.fs
-
 # HIDL
-DEVICE_MATRIX_FILE := $(DEVICE_PATH)/compatibility_matrix.xml
+DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE += $(DEVICE_PATH)/device_framework_matrix.xml
+DEVICE_MATRIX_FILE := device/qcom/common/compatibility_matrix.xml
 DEVICE_MANIFEST_FILE := $(DEVICE_PATH)/manifest.xml
 ODM_MANIFEST_FILES := $(DEVICE_PATH)/manifest-qva.xml
 

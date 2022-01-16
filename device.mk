@@ -21,11 +21,13 @@ PRODUCT_COPY_FILES += \
 # Overlays
 DEVICE_PACKAGE_OVERLAYS += \
     $(LOCAL_PATH)/overlay \
-    $(LOCAL_PATH)/overlay-arrow
+    $(LOCAL_PATH)/overlay-ice
 
 PRODUCT_ENFORCE_RRO_TARGETS := *
 
 # A/B
+AB_OTA_UPDATER := true
+
 AB_OTA_POSTINSTALL_CONFIG += \
     RUN_POSTINSTALL_system=true \
     POSTINSTALL_PATH_system=system/bin/otapreopt_script \
@@ -168,7 +170,6 @@ PRODUCT_PACKAGES += \
     android.hardware.camera.provider@2.4-service_64 \
     libxml2 \
     OnePlusCameraHelper \
-    Snap \
     vendor.oneplus.camera.CameraHIDL@1.0.vendor \
     vendor.qti.hardware.camera.device@1.0.vendor
 
@@ -192,12 +193,9 @@ PRODUCT_PACKAGES += \
     init.qcom.sdio.sh \
     init.qcom.sensors.sh \
     init.qcom.sh \
-    init.qcom.usb.rc \
-    init.qcom.usb.sh \
     init.qti.chg_policy.sh \
     init.qti.dcvs.sh \
     init.qti.qcv.sh \
-    init.qti.ufs.rc \
     init.recovery.qcom.rc \
     init.target.rc \
     ueventd.qcom.rc \
@@ -207,6 +205,10 @@ PRODUCT_PACKAGES += \
 # Component overrides
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/component-overrides.xml:$(TARGET_COPY_OUT_VENDOR)/etc/sysconfig/component-overrides.xml
+
+# ConfigStore
+PRODUCT_PACKAGES += \
+    vendor.qti.hardware.capabilityconfigstore@1.0.vendor
 
 # Display
 PRODUCT_PACKAGES += \
@@ -222,7 +224,6 @@ PRODUCT_PACKAGES += \
     libdisplayconfig.system.qti \
     libqdMetaData \
     libqdMetaData.system \
-    libtinyxml \
     libvulkan \
     memtrack.msmnile \
     vendor.display.config@1.0 \
@@ -358,6 +359,7 @@ PRODUCT_PACKAGES += \
     libc2dcolorconvert \
     libcodec2_hidl@1.0.vendor \
     libcodec2_vndk.vendor \
+    libmm-omxcore \
     libOmxAacEnc \
     libOmxAmrEnc \
     libOmxCore \
@@ -367,7 +369,8 @@ PRODUCT_PACKAGES += \
     libOmxVdec \
     libOmxVenc \
     libOmxVidcCommon \
-    libstagefrighthw
+    libstagefrighthw \
+    libstagefright_softomx.vendor
 
 # OnePlus
 PRODUCT_PACKAGES += \
@@ -382,11 +385,17 @@ PRODUCT_PACKAGES += \
     android.hardware.power-service-qti \
     vendor.qti.hardware.perf@2.2.vendor
 
-# QMI
-PRODUCT_PACKAGES += \
-    libjson \
-    libqti_vndfwk_detect \
-    libqti_vndfwk_detect.vendor
+# Platform
+TARGET_BOARD_PLATFORM := msmnile
+TARGET_USES_NQ_NFC := true
+
+# QTI
+TARGET_COMMON_QTI_COMPONENTS := \
+    bt \
+    display \
+    perf \
+    telephony \
+    usb
 
 # RIL
 PRODUCT_PACKAGES += \
@@ -398,20 +407,12 @@ PRODUCT_PACKAGES += \
     librmnetctl \
     libxml2
 
-# Vendor libstdc++
-PRODUCT_PACKAGES += \
-    libstdc++.vendor
-
 # Vibrator
 PRODUCT_PACKAGES += \
     vendor.qti.hardware.vibrator.service.oneplus7pro
 
 PRODUCT_COPY_FILES += \
     vendor/qcom/opensource/vibrator/excluded-input-devices.xml:$(TARGET_COPY_OUT_VENDOR)/etc/excluded-input-devices.xml
-
-# Seccomp policy
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/seccomp/mediacodec.policy:$(TARGET_COPY_OUT_VENDOR)/etc/seccomp_policy/mediacodec.policy
 
 # Sensors
 PRODUCT_PACKAGES += \
@@ -428,22 +429,6 @@ PRODUCT_PACKAGES += \
 # Soong namespaces
 PRODUCT_SOONG_NAMESPACES += \
     $(LOCAL_PATH)
-
-# Telephony
-PRODUCT_PACKAGES += \
-    ims-ext-common \
-    ims_ext_common.xml \
-    qti-telephony-hidl-wrapper \
-    qti_telephony_hidl_wrapper.xml \
-    qti-telephony-utils \
-    qti_telephony_utils.xml \
-    telephony-ext
-
-PRODUCT_BOOT_JARS += \
-    telephony-ext
-
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/privapp-permissions-qti.xml:$(TARGET_COPY_OUT_SYSTEM_EXT)/etc/permissions/privapp-permissions-qti.xml
 
 # Touch
 PRODUCT_PACKAGES += \
@@ -465,6 +450,9 @@ PRODUCT_PACKAGES_DEBUG += \
 # USB
 PRODUCT_PACKAGES += \
     android.hardware.usb@1.0-service
+
+# VNDK
+PRODUCT_EXTRA_VNDK_VERSIONS := 30
 
 # Wifi
 PRODUCT_PACKAGES += \
