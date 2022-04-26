@@ -15,7 +15,7 @@
 //
 
 cc_library {
-    name: "bootctrl.msmnile",
+    name: "bootctrl.oneplus7pro",
     defaults: ["bootctrl_hal_defaults"],
-    static_libs: ["libgptutils.oneplus_msmnile"],
+    static_libs: ["libgptutils.oneplus7pro"],
 }
