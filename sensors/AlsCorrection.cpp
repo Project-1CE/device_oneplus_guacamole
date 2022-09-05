@@ -191,7 +191,7 @@ void AlsCorrection::process(Event& event) {
             event.u.data[15]
          );
     */
-    ALOGV("Raw sensor reading: %.0f", event.u.scalar);
+    //ALOGV("Raw sensor reading: %.0f", event.u.scalar);
 
     if (conf.rgbw_max_lux[0] == 0.0 && conf.rgbw_max_lux[1] == 0.0 &&
         conf.rgbw_max_lux[2] == 0.0 && conf.rgbw_max_lux[3] == 0.0) {
@@ -225,7 +225,7 @@ void AlsCorrection::process(Event& event) {
             state.force_update = true;
         }
         if ((now - state.last_update) < ms2ns(100)) {
-            ALOGV("Events coming too fast, dropping");
+            //ALOGV("Events coming too fast, dropping");
             // TODO figure out a better way to drop events
             event.sensorHandle = 0;
             return;
@@ -362,16 +362,16 @@ void AlsCorrection::process(Event& event) {
             sensor_corrected = std::max(sensor_corrected - 14.0, 0.0);
             event.u.scalar = sensor_corrected;
             state.last_corrected_value = sensor_corrected;
-            ALOGV("Fully corrected sensor value: %.0f lux", sensor_corrected);
+            //ALOGV("Fully corrected sensor value: %.0f lux", sensor_corrected);
         } else {
             event.u.scalar = state.last_corrected_value;
-            ALOGV("Reusing cached value: %.0f lux", event.u.scalar);
+            //ALOGV("Reusing cached value: %.0f lux", event.u.scalar);
         }
 
         state.force_update = false;
     } else {
         event.u.scalar = state.last_corrected_value;
-        ALOGV("Reusing cached value: %.0f lux", event.u.scalar);
+        //ALOGV("Reusing cached value: %.0f lux", event.u.scalar);
     }
 }
 
