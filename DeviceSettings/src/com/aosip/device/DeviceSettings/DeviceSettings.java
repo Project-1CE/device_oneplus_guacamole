@@ -19,25 +19,18 @@ package com.aosip.device.DeviceSettings;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.Settings;
-import android.view.MenuItem;
 
 import androidx.preference.Preference;
-import androidx.preference.PreferenceCategory;
 import androidx.preference.PreferenceFragment;
-import androidx.preference.SwitchPreference;
 import androidx.preference.TwoStatePreference;
 
-import com.aosip.device.DeviceSettings.ModeSwitch.DCModeSwitch;
-import com.aosip.device.DeviceSettings.ModeSwitch.HBMModeSwitch;
+import com.aosip.device.DeviceSettings.ModeSwitch.*;
 
 public class DeviceSettings extends PreferenceFragment
         implements Preference.OnPreferenceChangeListener {
 
     public static final String KEY_HBM_SWITCH = "hbm";
     public static final String KEY_DC_SWITCH = "dc";
-
-    public static final String KEY_SETTINGS_PREFIX = "device_setting_";
 
     private TwoStatePreference mHBMModeSwitch;
     private TwoStatePreference mDCModeSwitch;
@@ -46,7 +39,7 @@ public class DeviceSettings extends PreferenceFragment
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         addPreferencesFromResource(R.xml.main);
 
-        TwoStatePreference mDCModeSwitch = findPreference(KEY_DC_SWITCH);
+        mDCModeSwitch = findPreference(KEY_DC_SWITCH);
         mDCModeSwitch.setEnabled(DCModeSwitch.isSupported());
         mDCModeSwitch.setChecked(DCModeSwitch.isCurrentlyEnabled());
         mDCModeSwitch.setOnPreferenceChangeListener(new DCModeSwitch());

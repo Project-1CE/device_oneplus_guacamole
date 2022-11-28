@@ -21,10 +21,10 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.provider.Settings;
 import androidx.preference.PreferenceManager;
 
-import com.aosip.device.DeviceSettings.ModeSwitch.*;
+import com.aosip.device.DeviceSettings.ModeSwitch.DCModeSwitch;
+import com.aosip.device.DeviceSettings.TouchscreenGestureFragment;
 
 public class Startup extends BroadcastReceiver {
 
