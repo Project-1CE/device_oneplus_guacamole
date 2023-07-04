@@ -327,7 +327,6 @@ public class TouchKeyHandler implements DeviceKeyHandler {
             mGestureWakeLock.acquire(GESTURE_WAKELOCK_DURATION);
             final Intent intent = new Intent(PULSE_ACTION);
             mContext.sendBroadcastAsUser(intent, UserHandle.CURRENT);
-            doHapticFeedback();
         }
     }
 
@@ -369,7 +368,7 @@ public class TouchKeyHandler implements DeviceKeyHandler {
             final boolean enabled = Settings.System.getInt(mContext.getContentResolver(),
                     Settings.System.TOUCHSCREEN_GESTURE_HAPTIC_FEEDBACK, 1) != 0;
             if (enabled) {
-                mVibrator.vibrate(VibrationEffect.createPredefined(VibrationEffect.EFFECT_DOUBLE_CLICK));
+                mVibrator.vibrate(VibrationEffect.createPredefined(VibrationEffect.EFFECT_CLICK));
             }
         }
     }
