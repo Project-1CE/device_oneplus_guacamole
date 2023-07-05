@@ -387,8 +387,7 @@ PRODUCT_BOOT_JARS += \
 
 # Power
 PRODUCT_PACKAGES += \
-    android.hardware.power-service-qti \
-    android.hardware.power@1.2.vendor \
+    android.hardware.power-service \
     vendor.qti.hardware.perf@2.2.vendor
 
 # Platform
